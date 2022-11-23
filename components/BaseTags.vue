@@ -1,12 +1,13 @@
 <template>
   <ul
+    ref="tagsList"
     class="tags"
     :class="{'tags_aligment--justify' : alignment === 'justify'}"
   >
     <template
-      v-for="tag in tagArrComp"
+      v-for="(tag, index) in tagArrComp"
     >
-      <li :key="tag.id" class="tags__item">
+      <li :key="index" class="tags__item">
         <v-icon v-if="tag.icon" dense class="tags__icon">
           mdi-{{ tag.icon }}
         </v-icon>
@@ -15,8 +16,8 @@
         </p>
       </li>
       <v-icon
-        v-if="tag.id != tagArrComp.length"
-        :key="tag.id + 'icon'"
+        v-if="index != tagArrComp.length - 1"
+        :key="index + 'icon'"
         class="tags__icon-separator"
       >
         mdi-circle-small
@@ -45,21 +46,24 @@ export default {
   }),
   computed: {
     tagArrComp () {
-      const arr = this.tagArr.map((e, index) => (
-        e = {
-          ...e,
-          id: index + 1
-        }
-      )) || []
+      const arr = this.tagArr || []
       // console.log(`%c${JSON.stringify(arr)}`, '🐦;background: lightblue; color: red; padding: 3px; border-radius: 5px;')
       return arr
     }
   },
   mounted () {
-    checkСapacity()
+    this.checkСapacity()
     window.addEventListener('resize', () => {
-      checkСapacity()
+      this.checkСapacity()
     })
+  },
+  beforeDestroy () {
+    window.removeListener(this.checkСapacity)
+  },
+  methods: {
+    checkСapacity () {
+      checkСapacity(this.$refs.tagsList)
+    }
   }
 }
 </script>

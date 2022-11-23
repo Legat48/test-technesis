@@ -1,9 +1,7 @@
-export default () => {
-  // функция проверит все компоненты с классом tags
-  const wrapArr = document.querySelectorAll('.tags')
-  wrapArr.forEach((wrap) => {
+export default (element) => {
+  function checkEl (el) {
     let notFit = false // флаг для режима "уже не помещается"
-    const itemArr = wrap.querySelectorAll('.tags__item') // массив тегов
+    const itemArr = el.querySelectorAll('.tags__item') // массив тегов
     // каждый раз проверяем помещаюстя ли элементы, для этого сначала пробуем их все разместить внутри родителя:
     itemArr.forEach((item) => {
       item.classList.remove('tags__item_deactive')
@@ -13,7 +11,7 @@ export default () => {
     })
     // проверяем на то, что бы всё помещалось
     for (const item of itemArr) {
-      if ((wrap.offsetLeft + wrap.offsetWidth - 4 < item.offsetLeft + item.offsetWidth &&
+      if ((el.offsetLeft + el.offsetWidth - 4 < item.offsetLeft + item.offsetWidth &&
       !notFit) || notFit) {
         item.classList.add('tags__item_deactive')
         if (item.previousSibling) {
@@ -24,5 +22,14 @@ export default () => {
         item.classList.remove('tags__item_deactive')
       }
     }
-  })
+  }
+  if (element) {
+    checkEl(element)
+  } else {
+    // функция проверит все компоненты с классом tags
+    const wrapArr = document.querySelectorAll('.tags')
+    wrapArr.forEach((wrap) => {
+      checkEl(wrap)
+    })
+  }
 }

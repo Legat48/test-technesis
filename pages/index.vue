@@ -39,32 +39,26 @@ export default {
       restrict: 12,
       tabArrResize: [
         {
-          id: 1,
           text: 'Не ограничивать',
           value: 12
         },
         {
-          id: 2,
           text: 'Ограничить 1/6',
           value: 2
         },
         {
-          id: 3,
           text: 'Ограничить 1/4',
           value: 3
         },
         {
-          id: 4,
           text: 'Ограничить 1/3',
           value: 4
         },
         {
-          id: 5,
           text: 'Ограничить 1/2',
           value: 6
         },
         {
-          id: 6,
           text: 'Ограничить 3/4',
           value: 9
         }

@@ -1,5 +1,3 @@
-import tagArr from '@/static/tagArr.json'
-
 export const state = () => ({
   tagArr: []
 })
